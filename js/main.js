@@ -1,6 +1,7 @@
 'use strict'
 
-const AVATAR_COUNT = 8;
+const AVATAR_PATH = 'img/avatars/';
+const AVATAR_IMAGES = ['user01.png', 'user02.png', 'user03.png', 'user04.png', 'user05.png', 'user06.png', 'user07.png', 'user08.png'];
 const MAX_ROOMS = 25;
 const MAX_GUESTS = 500;
 const MIN_PRICE = 1000;
@@ -42,7 +43,7 @@ let getRandomFloat = function(min, max, precision) {
   if (!Number.isInteger(precision)) {
     return NaN
   }
-  let coefficient = (10**precision);
+  let coefficient = (10 ** precision);
   let minInteger = Math.floor(min * coefficient);
   let maxInteger = Math.floor(max * coefficient);
   let randomInteger = getRandomInteger(minInteger, maxInteger);
@@ -70,7 +71,7 @@ let getTestApartment = function() {
   let yPosition = getRandomFloat(MIN_Y, MAX_Y, 5);
   return {
     author: {
-      avatar: 'img/avatars/user' + String(getRandomInteger(1, AVATAR_COUNT)).padStart(2, '0') + '.png',
+      avatar: AVATAR_PATH + getRandomElement(AVATAR_IMAGES),
     },
     offer: {
       title: getRandomElement(TITLES),
