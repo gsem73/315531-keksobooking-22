@@ -51,8 +51,8 @@ let getRandomFloat = function(min, max, precision) {
 
 // Функция возвращает случайный элемент массива
 let getRandomElement = function(elements) {
-  let RandomIndex = getRandomInteger(0,elements.length-1)
-  return elements[RandomIndex];
+  let randomIndex = getRandomInteger(0, elements.length - 1);
+  return elements[randomIndex];
 };
 
 // Перемешиваем элементы массива случайным образом
@@ -77,11 +77,11 @@ let getTestApartment = function() {
   let yPosition = getRandomFloat(MIN_Y, MAX_Y, 5);
   return {
     author: {
-      avatar: 'img/avatars/user' + String(getRandomInteger(1, AVATAR_COUNT)).padStart(2,'0') + '.png',
+      avatar: 'img/avatars/user' + String(getRandomInteger(1, AVATAR_COUNT)).padStart(2, '0') + '.png',
     },
     offer: {
       title: getRandomElement(TITLES),
-      address: xPosition.toFixed(5) + ', ' +  yPosition.toFixed(5),
+      address: xPosition.toFixed(5) + ', ' + yPosition.toFixed(5),
       price: getRandomFloat(MIN_PRICE, MAX_PRICE, 2),
       type: getRandomElement(TYPES),
       rooms: getRandomInteger(1, MAX_ROOMS),
