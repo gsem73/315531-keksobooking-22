@@ -55,20 +55,13 @@ let getRandomElement = function(elements) {
   return elements[randomIndex];
 };
 
-// Перемешиваем элементы массива случайным образом
-let shuffle = function(array) {
-  for (let i = array.length - 1; i > 0; i--) {
+// Получение нескольких случайных элементов массива
+let getRandomArray = function(array, count = getRandomInteger(0, array.length)) {
+  for (let i = array.length - 1; i > (array.length - 1) - count; i--) {
     let j = Math.floor(Math.random() * (i + 1));
     [array[i], array[j]] = [array[j], array[i]];
   }
-}
-
-// Получение нескольких случайных элементов массива
-let getRandomArray = function(array) {
-  let arrayDuplicate = array.slice();
-  shuffle(arrayDuplicate); // Перемешиваем элементы массива
-  let randomLength = getRandomInteger(0, arrayDuplicate.length) // Длина результирующего массива тоже случайна
-  return arrayDuplicate.slice(0, randomLength-1);
+  return array.slice(array.length - count);
 }
 
 // Формирование тестовой информации по объекту недвижимости
