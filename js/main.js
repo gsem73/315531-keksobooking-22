@@ -1,5 +1,8 @@
 import {getApartments} from './data.js';
+import {createApartmentNodes} from './layout.js';
 
 let apartments = getApartments(10);
+let apartmentNodes = createApartmentNodes(apartments);
 
-alert(apartments.length);
+const mapCanvas = document.querySelector('#map-canvas');
+mapCanvas.appendChild(apartmentNodes.children[0]);
