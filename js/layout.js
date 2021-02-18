@@ -12,7 +12,7 @@ function createApartmentNodes(data) {
     offerAddress.textContent = data[i].offer.address;
 
     const offerPrice = element.querySelector('.popup__text--price');
-    offerPrice.innerHTML = data[i].offer.price + ' <span>₽/ночь</span>';
+    offerPrice.firstChild.nodeValue = data[i].offer.price.toLocaleString() + ' ';
 
     const apartmentType = element.querySelector('.popup__type');
     switch(data[i].offer.type) {
