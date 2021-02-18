@@ -42,9 +42,13 @@ function createApartmentNodes(data) {
     for (let j = 0; j < offerFeatures.children.length; j++) {
       offerFeatures.children[j].style.display = 'none';
     }
-    for (let j = 0; j < data[i].offer.features.length; j++) {
-      let featureItem = offerFeatures.querySelector('.popup__feature--' + data[i].offer.features[j]);
-      featureItem.style.display = 'inline-block';
+    if (data[i].offer.features.length > 0) {
+      for (let j = 0; j < data[i].offer.features.length; j++) {
+        let featureItem = offerFeatures.querySelector('.popup__feature--' + data[i].offer.features[j]);
+        featureItem.style.display = 'inline-block';
+      }
+    } else {
+      offerFeatures.style.display = 'none';
     }
 
     const offerDescription = element.querySelector('.popup__description');
@@ -56,10 +60,14 @@ function createApartmentNodes(data) {
 
     const offerPhotos = element.querySelector('.popup__photos');
     const photoTemplate = offerPhotos.removeChild(offerPhotos.children[0]);
-    for (let j = 0; j < data[i].offer.photos.length; j++) {
-      let photoItem = photoTemplate.cloneNode(photoTemplate);
-      photoItem.setAttribute('src', data[i].offer.photos[j]);
-      offerPhotos.appendChild(photoItem);
+    if (data[i].offer.photos.length > 0) {
+      for (let j = 0; j < data[i].offer.photos.length; j++) {
+        let photoItem = photoTemplate.cloneNode(photoTemplate);
+        photoItem.setAttribute('src', data[i].offer.photos[j]);
+        offerPhotos.appendChild(photoItem);
+      }
+    } else {
+      offerPhotos.style.display = 'none';
     }
 
     const authorAvatar = element.querySelector('.popup__avatar');
