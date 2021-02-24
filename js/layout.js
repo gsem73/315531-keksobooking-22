@@ -1,5 +1,7 @@
+const template = document.querySelector('#card').content.querySelector('.popup');
+
 function createApartmentNodes(data) {
-  const template = document.querySelector('#card').content.querySelector('.popup');
+
   const fragment = document.createDocumentFragment();
 
   for (let i = 0; i < data.length; i++) {
