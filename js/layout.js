@@ -1,23 +1,23 @@
 const template = document.querySelector('#card').content.querySelector('.popup');
 
-function createApartmentNodes(data) {
+function createApartmentNodes(realtyAds) {
 
   const fragment = document.createDocumentFragment();
 
-  for (let i = 0; i < data.length; i++) {
+  for (let i = 0; i < realtyAds.length; i++) {
     const element = template.cloneNode(true);
 
     const offerTitle = element.querySelector('.popup__title');
-    offerTitle.textContent = data[i].offer.title;
+    offerTitle.textContent = realtyAds[i].offer.title;
 
     const offerAddress = element.querySelector('.popup__text--address');
-    offerAddress.textContent = data[i].offer.address;
+    offerAddress.textContent = realtyAds[i].offer.address;
 
     const offerPrice = element.querySelector('.popup__text--price');
-    offerPrice.firstChild.nodeValue = data[i].offer.price.toLocaleString() + ' ';
+    offerPrice.firstChild.nodeValue = realtyAds[i].offer.price.toLocaleString() + ' ';
 
     const apartmentType = element.querySelector('.popup__type');
-    switch(data[i].offer.type) {
+    switch(realtyAds[i].offer.type) {
       case 'palace':
         apartmentType.textContent = 'Дворец';
         break;
@@ -31,22 +31,22 @@ function createApartmentNodes(data) {
         apartmentType.textContent = 'Бунгало';
         break;
       default:
-        apartmentType.textContent = data[i].offer.type;
+        apartmentType.textContent = realtyAds[i].offer.type;
     }
 
     const offerCapacity = element.querySelector('.popup__text--capacity');
-    offerCapacity.textContent = data[i].offer.rooms + ' комнаты для ' + data[i].offer.guests + ' гостей';
+    offerCapacity.textContent = realtyAds[i].offer.rooms + ' комнаты для ' + realtyAds[i].offer.guests + ' гостей';
 
     const offerTime = element.querySelector('.popup__text--time');
-    offerTime.textContent = 'Заезд после ' + data[i].offer.checkin + ', выезд до ' + data[i].offer.checkout;
+    offerTime.textContent = 'Заезд после ' + realtyAds[i].offer.checkin + ', выезд до ' + realtyAds[i].offer.checkout;
 
     const offerFeatures = element.querySelector('.popup__features');
     for (let j = 0; j < offerFeatures.children.length; j++) {
       offerFeatures.children[j].style.display = 'none';
     }
-    if (data[i].offer.features.length > 0) {
-      for (let j = 0; j < data[i].offer.features.length; j++) {
-        let featureItem = offerFeatures.querySelector('.popup__feature--' + data[i].offer.features[j]);
+    if (realtyAds[i].offer.features.length > 0) {
+      for (let j = 0; j < realtyAds[i].offer.features.length; j++) {
+        let featureItem = offerFeatures.querySelector('.popup__feature--' + realtyAds[i].offer.features[j]);
         featureItem.style.display = 'inline-block';
       }
     } else {
@@ -54,18 +54,18 @@ function createApartmentNodes(data) {
     }
 
     const offerDescription = element.querySelector('.popup__description');
-    if (data[i].offer.description !== '') {
-      offerDescription.textContent = data[i].offer.description;
+    if (realtyAds[i].offer.description !== '') {
+      offerDescription.textContent = realtyAds[i].offer.description;
     } else {
       offerDescription.style.display = 'none';
     }
 
     const offerPhotos = element.querySelector('.popup__photos');
     const photoTemplate = offerPhotos.removeChild(offerPhotos.children[0]);
-    if (data[i].offer.photos.length > 0) {
-      for (let j = 0; j < data[i].offer.photos.length; j++) {
+    if (realtyAds[i].offer.photos.length > 0) {
+      for (let j = 0; j < realtyAds[i].offer.photos.length; j++) {
         let photoItem = photoTemplate.cloneNode(photoTemplate);
-        photoItem.setAttribute('src', data[i].offer.photos[j]);
+        photoItem.setAttribute('src', realtyAds[i].offer.photos[j]);
         offerPhotos.appendChild(photoItem);
       }
     } else {
@@ -73,7 +73,7 @@ function createApartmentNodes(data) {
     }
 
     const authorAvatar = element.querySelector('.popup__avatar');
-    authorAvatar.setAttribute('src', data[i].author.avatar);
+    authorAvatar.setAttribute('src', realtyAds[i].author.avatar);
 
     fragment.appendChild(element);
   }
