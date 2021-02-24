@@ -4,7 +4,12 @@ const AVATAR_PATH = 'img/avatars/';
 const AVATAR_IMAGES = ['user01.png', 'user02.png', 'user03.png', 'user04.png', 'user05.png', 'user06.png', 'user07.png', 'user08.png'];
 const MAX_ROOMS = 25;
 const MAX_GUESTS = 500;
-const MIN_PRICE = 1000;
+const MIN_PRICE = {
+  'palace': 10000,
+  'flat': 1000,
+  'house': 5000,
+  'bungalow': 0,
+};
 const MAX_PRICE = 1000000;
 const MIN_X = 35.65000;
 const MAX_X = 35.70000;
@@ -19,10 +24,21 @@ const AVAILABLE_PHOTOS = ['http://o0.github.io/assets/images/tokyo/hotel1.jpg','
 const TITLES = ['Комфорт для Вас', 'Уголок тишины в центре города', 'Сказочная атмосфера средневекового замка', 'Идеально для двоих'];
 const DESCRIPTIONS = ['Функциональная планировка', 'Оригинальный дизайн', 'Отличный ремонт', 'Панорамное остекление'];
 
+let getMinPrice = function(type) {
+  return MIN_PRICE[type];
+}
+
+let getMaxPrice = function() {
+  return MAX_PRICE;
+}
+
+export {getMinPrice, getMaxPrice};
+
 // Формирование тестовой информации по объекту недвижимости
 let getTestApartment = function() {
   let xPosition = getRandomFloat(MIN_X, MAX_X, 5);
   let yPosition = getRandomFloat(MIN_Y, MAX_Y, 5);
+  let apartmentType = getRandomElement(TYPES);
   return {
     author: {
       avatar: AVATAR_PATH + getRandomElement(AVATAR_IMAGES),
@@ -30,8 +46,8 @@ let getTestApartment = function() {
     offer: {
       title: getRandomElement(TITLES),
       address: xPosition.toFixed(5) + ', ' + yPosition.toFixed(5),
-      price: getRandomFloat(MIN_PRICE, MAX_PRICE, 2),
-      type: getRandomElement(TYPES),
+      price: getRandomFloat(getMinPrice(apartmentType), getMaxPrice(), 2),
+      type: apartmentType,
       rooms: getRandomInteger(1, MAX_ROOMS),
       guests: getRandomInteger(1, MAX_GUESTS),
       checkin: getRandomElement(CHECK_TIMES),
