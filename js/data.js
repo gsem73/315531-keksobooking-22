@@ -4,7 +4,7 @@ const AVATAR_PATH = 'img/avatars/';
 const AVATAR_IMAGES = ['user01.png', 'user02.png', 'user03.png', 'user04.png', 'user05.png', 'user06.png', 'user07.png', 'user08.png'];
 const MAX_ROOMS = 25;
 const MAX_GUESTS = 500;
-const MIN_PRICE = {
+const MinRealtyPrice = {
   'palace': 10000,
   'flat': 1000,
   'house': 5000,
@@ -25,7 +25,7 @@ const TITLES = ['Комфорт для Вас', 'Уголок тишины в ц
 const DESCRIPTIONS = ['Функциональная планировка', 'Оригинальный дизайн', 'Отличный ремонт', 'Панорамное остекление'];
 
 let getMinPrice = function(type) {
-  return MIN_PRICE[type];
+  return MinRealtyPrice[type];
 }
 
 let getMaxPrice = function() {
