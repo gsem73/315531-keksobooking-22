@@ -1,5 +1,5 @@
 /* global L:readonly */
-import {getMinPrice, getMaxPrice, getApartments} from './data.js';
+import {getMinPrice, getApartments} from './data.js';
 import {createApartmentNodes} from './layout.js';
 
 const TOKYO_CENTER = {
@@ -125,9 +125,6 @@ for (let i = 0; i < apartments.length; i++) {
 const typeRealty = document.querySelector('#type');
 
 const priceRealty = document.querySelector('#price');
-priceRealty.setAttribute('min', 0);
-priceRealty.setAttribute('max', getMaxPrice());
-priceRealty.setAttribute('required', '');
 
 const onTypeRealtyChange = function(evt) {
   let minPrice = getMinPrice(evt.target.value);
@@ -151,3 +148,38 @@ const onTimeOutChange = function(evt) {
 timeIn.addEventListener('change', onTimeInChange);
 timeOut.addEventListener('change', onTimeOutChange);
 
+
+// Расширенная валидация поля "Количество мест"
+
+const capacity = document.querySelector('#capacity');
+const roomNumber = document.querySelector('#room_number');
+
+// Правила проверки количества гостей в зависимостии от выбранного количества комнат
+const СapacityRules = {
+  '1': ['1'],
+  '2': ['1', '2'],
+  '3': ['1', '2', '3'],
+  '100': ['0'],
+};
+
+const validateRoomNumber = function() {
+  if (СapacityRules[roomNumber.value].includes(capacity.value)) {
+    capacity.setCustomValidity('');
+  } else {
+    capacity.setCustomValidity('Возможные значения при выбанном количестве комнат: ' + СapacityRules[roomNumber.value]);
+  }
+};
+
+// Проверка начального состояния формы
+validateRoomNumber();
+
+const onCapacityChange = function() {
+  validateRoomNumber();
+};
+
+const onRoomNumberChange = function() {
+  validateRoomNumber();
+};
+
+capacity.addEventListener('change', onCapacityChange);
+roomNumber.addEventListener('change', onRoomNumberChange);
