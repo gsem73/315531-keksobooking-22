@@ -1,6 +1,6 @@
 /* global L:readonly */
 import {getMinPrice, getApartments} from './data.js';
-import {createApartmentNodes} from './layout.js';
+import {createBalloonLayout} from './layout.js';
 
 const TOKYO_CENTER = {
   lat: 35.675,
@@ -90,7 +90,6 @@ marker.addTo(map);
 // Метки похожих объявлений
 
 let apartments = getApartments(10);
-let apartmentNodes = createApartmentNodes(apartments);
 
 const pinIcon = L.icon({
   iconUrl: 'img/pin.svg',
@@ -113,7 +112,7 @@ for (let i = 0; i < apartments.length; i++) {
   pin
     .addTo(map)
     .bindPopup(
-      apartmentNodes.children[i],
+      createBalloonLayout(apartments[i]),
       {
         keepInView: true,
       },
