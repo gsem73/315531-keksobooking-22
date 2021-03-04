@@ -1,6 +1,7 @@
 /* global L:readonly */
-import {getMinPrice, getApartments} from './data.js';
+import {getMinPrice} from './data.js';
 import {createBalloonLayout} from './layout.js';
+import {getSimilarRealty} from './server.js';
 
 const TOKYO_CENTER = {
   lat: 35.675,
@@ -99,12 +100,8 @@ const addBalloons = function(apartments) {
 
   for (let i = 0; i < apartments.length; i++) {
 
-    let coordinates = {};
-    coordinates.lat = apartments[i].location.x;
-    coordinates.lng = apartments[i].location.y;
-
     let pin = L.marker(
-      coordinates,
+      apartments[i].location,
       {
         icon: pinIcon,
       },
@@ -120,8 +117,13 @@ const addBalloons = function(apartments) {
   }
 }
 
-addBalloons(getApartments(10));
+const showError = function(error) {
+  alert('Ошибка при загрузке списка похожих объявлений: ' + error.message)
+}
 
+const similarRealty = getSimilarRealty(addBalloons, showError);
+
+similarRealty();
 
 // Валидация формы
 
