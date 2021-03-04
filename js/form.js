@@ -89,35 +89,39 @@ marker.addTo(map);
 
 // Метки похожих объявлений
 
-let apartments = getApartments(10);
-
 const pinIcon = L.icon({
   iconUrl: 'img/pin.svg',
   iconSize: [52, 52],
   iconAnchor: [21, 52],
 });
 
-for (let i = 0; i < apartments.length; i++) {
+const addBalloons = function(apartments) {
 
-  let coordinates = {};
-  coordinates.lat = apartments[i].location.x;
-  coordinates.lng = apartments[i].location.y;
+  for (let i = 0; i < apartments.length; i++) {
 
-  let pin = L.marker(
-    coordinates,
-    {
-      icon: pinIcon,
-    },
-  );
-  pin
-    .addTo(map)
-    .bindPopup(
-      createBalloonLayout(apartments[i]),
+    let coordinates = {};
+    coordinates.lat = apartments[i].location.x;
+    coordinates.lng = apartments[i].location.y;
+
+    let pin = L.marker(
+      coordinates,
       {
-        keepInView: true,
+        icon: pinIcon,
       },
     );
+    pin
+      .addTo(map)
+      .bindPopup(
+        createBalloonLayout(apartments[i]),
+        {
+          keepInView: true,
+        },
+      );
+  }
 }
+
+addBalloons(getApartments(10));
+
 
 // Валидация формы
 
