@@ -1,7 +1,7 @@
 /* global L:readonly */
 import {getMinPrice} from './data.js';
 import {createBalloonLayout} from './layout.js';
-import {getSimilarRealty} from './server.js';
+import {getSimilarRealty, sendData} from './server.js';
 
 const TOKYO_CENTER = {
   lat: 35.675,
@@ -52,7 +52,7 @@ const onMapLoad = function() {
 
 const map = L.map('map-canvas');
 map.on('load', onMapLoad);
-map.setView(TOKYO_CENTER, 12);
+map.setView(TOKYO_CENTER, 10);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -65,7 +65,7 @@ L.tileLayer(
 
 const address = document.querySelector('#address');
 address.setAttribute('readonly', '');
-address.value = formatLatLng(TOKYO_CENTER);
+address.setAttribute('value', formatLatLng(TOKYO_CENTER));
 
 const mainPinIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
@@ -188,3 +188,70 @@ const onRoomNumberChange = function() {
 
 capacity.addEventListener('change', onCapacityChange);
 roomNumber.addEventListener('change', onRoomNumberChange);
+
+// Сброс карты и формы фильтров
+const onPageReset = function() {
+  filter.form.reset();
+  map.setView(TOKYO_CENTER, 10);
+  marker.setLatLng(TOKYO_CENTER);
+}
+
+const main = document.querySelector('main');
+const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+
+// Закрытие модального окна success
+const onSuccessClick = function() {
+  const popup = document.querySelector('.success');
+  main.removeChild(popup);
+  document.removeEventListener('keydown', onSuccessKeyDown);
+}
+
+const onSuccessKeyDown = function(evt) {
+  if (evt.key === 'Escape') {
+    const popup = document.querySelector('.success');
+    main.removeChild(popup);
+    document.removeEventListener('keydown', onSuccessKeyDown);
+  }
+}
+
+// Закрытие модального окна error
+const onErrorClick = function() {
+  const popup = document.querySelector('.error');
+  main.removeChild(popup);
+  document.removeEventListener('keydown', onErrorKeyDown);
+}
+
+const onErrorKeyDown = function(evt) {
+  if (evt.key === 'Escape') {
+    const popup = document.querySelector('.error');
+    main.removeChild(popup);
+    document.removeEventListener('keydown', onErrorKeyDown);
+  }
+}
+
+// Обработка результатов отправки формы
+const onSuccess = function() {
+  ad.form.reset();
+  onPageReset();
+  const successMessagePopup = successMessageTemplate.cloneNode(true);
+  const successPopup = main.appendChild(successMessagePopup);
+  successPopup.addEventListener('click', onSuccessClick);
+  document.addEventListener('keydown', onSuccessKeyDown);
+}
+
+const onFail = function() {
+  const errorMessagePopup = errorMessageTemplate.cloneNode(true);
+  const errorPopup = main.appendChild(errorMessagePopup);
+  errorPopup.addEventListener('click', onErrorClick);
+  document.addEventListener('keydown', onErrorKeyDown);
+}
+
+// Отправка формы
+const onAdFormSubmit = function(evt) {
+  evt.preventDefault();
+  sendData(onSuccess, onFail, new FormData(evt.target));
+}
+
+ad.form.addEventListener('submit', onAdFormSubmit);
+ad.form.addEventListener('reset', onPageReset);
