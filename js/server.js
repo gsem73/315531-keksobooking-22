@@ -1,5 +1,5 @@
-const getSimilarRealty = (onSuccess, onError) => () => {
-  return fetch('https://22.javascript.pages.academy/keksobooking/data')
+const recieveData = (onSuccess, onError) => {
+  fetch('https://22.javascript.pages.academy/keksobooking/data')
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -15,7 +15,7 @@ const getSimilarRealty = (onSuccess, onError) => () => {
 };
 
 
-const sendData = (onSuccess, onFail, body) => {
+const sendData = (onSuccess, onError, body) => {
   fetch(
     'https://22.javascript.pages.academy/keksobooking',
     {
@@ -27,12 +27,12 @@ const sendData = (onSuccess, onFail, body) => {
       if (response.ok) {
         onSuccess();
       } else {
-        onFail();
+        throw new Error(`${response.status} ${response.statusText}`);
       }
     })
     .catch(() => {
-      onFail();
+      onError();
     });
 };
 
-export {getSimilarRealty, sendData};
+export {recieveData, sendData};
