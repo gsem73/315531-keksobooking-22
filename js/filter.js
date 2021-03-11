@@ -21,4 +21,8 @@ const resetFilterForm = function() {
   filterForm.reset();
 }
 
-export{disableFilterForm, enableFilterForm, resetFilterForm};
+const getFilterValue = function() {
+  return new FormData(filterForm);
+}
+
+export{disableFilterForm, enableFilterForm, resetFilterForm, getFilterValue};
