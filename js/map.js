@@ -6,11 +6,12 @@ const MAX_PIN = 10; // максимальное количество меток 
 
 import {getViewCenter, setSimilarRealty, getSimilarRealty} from './data.js';
 import {enableMainForm, setCoordinates} from './form.js';
-import {enableFilterForm} from './filter.js';
+import {enableFilterForm, getFilterValue} from './filter.js';
 import {recieveData} from './server.js';
 import {createBalloonLayout} from './layout.js';
 
 const map = L.map('map-canvas');
+const markerGroup = L.layerGroup().addTo(map);
 
 // Добавляем на карту метки похожих объявлений
 
@@ -31,7 +32,7 @@ const showPin = function(realtyList) {
       },
     );
     pin
-      .addTo(map)
+      .addTo(markerGroup)
       .bindPopup(
         createBalloonLayout(realtyList[i]),
         {
@@ -46,7 +47,7 @@ const showPin = function(realtyList) {
 const onReciveSuccess = function(json) {
   setSimilarRealty(json);
   enableFilterForm();
-  showPin(getSimilarRealty(MAX_PIN));
+  showPin(getSimilarRealty(MAX_PIN, getFilterValue()));
 };
 
 const onReciveError = function(error) {
@@ -94,8 +95,18 @@ mainMarker.on('moveend', onMainMarkerMoveend);
 mainMarker.addTo(map);
 
 const resetMap = function() {
+  map.closePopup();
   map.setView(getViewCenter(), 10);
   mainMarker.setLatLng(getViewCenter());
 };
 
-export{resetMap};
+
+const refreshMarker = function() {
+  map.closePopup();
+  markerGroup.eachLayer(function(marker){
+    marker.remove();
+  });
+  showPin(getSimilarRealty(MAX_PIN, getFilterValue()));
+};
+
+export{resetMap, refreshMarker};

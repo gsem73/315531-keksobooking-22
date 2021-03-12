@@ -19,8 +19,19 @@ const setSimilarRealty = function(json) {
   similarRealty = json;
 };
 
-const getSimilarRealty = function(elementCount) {
-  return similarRealty.slice(0, elementCount);
+const getSimilarRealty = function(elementCount, filterValue) {
+
+  // Проверка похожего объявления на соответствие критериям фильтрации
+  const checkElement = function(element) {
+    if (filterValue.get('housing-type') !== 'any') {
+      if (filterValue.get('housing-type') !== element.offer.type) {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  return similarRealty.filter(checkElement).slice(0, elementCount);
 }
 
 export {getViewCenter, formatCoordinates, setSimilarRealty, getSimilarRealty};
