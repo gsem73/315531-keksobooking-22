@@ -94,19 +94,18 @@ const onMainMarkerMoveend = function(evt) {
 mainMarker.on('moveend', onMainMarkerMoveend);
 mainMarker.addTo(map);
 
-const resetMap = function() {
-  map.closePopup();
-  map.setView(getViewCenter(), 10);
-  mainMarker.setLatLng(getViewCenter());
-};
-
-
 const refreshMarker = function() {
   map.closePopup();
   markerGroup.eachLayer(function(marker){
     marker.remove();
   });
   showPin(getSimilarRealty(MAX_PIN, getFilterValue()));
+};
+
+const resetMap = function() {
+  map.setView(getViewCenter(), 10);
+  mainMarker.setLatLng(getViewCenter());
+  refreshMarker()
 };
 
 export{resetMap, refreshMarker};
