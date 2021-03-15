@@ -22,7 +22,18 @@ const resetFilterForm = function() {
 }
 
 const getFilterValue = function() {
-  return new FormData(filterForm);
+
+  const result = {};
+  const formData = new FormData(filterForm);
+
+  result.housingType = formData.get('housing-type');
+  result.housingPrice = formData.get('housing-price');
+  result.housingRooms = formData.get('housing-rooms');
+  result.housingGuests = formData.get('housing-guests');
+  result.features = formData.getAll('features');
+
+  return result;
+
 }
 
 export{disableFilterForm, enableFilterForm, resetFilterForm, getFilterValue};
