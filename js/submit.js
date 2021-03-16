@@ -6,10 +6,12 @@ import {resetMap} from './map.js';
 import {showSuccessPopup} from './success.js';
 import {showErrorPopup} from './error.js'
 import {sendData} from './server.js'
+import {resetPreview} from './photo.js';
 
 const mainForm = document.querySelector('.ad-form');
 
 const onMainFormReset = function() {
+  resetPreview();
   resetFilterForm();
   resetMap();
 };
