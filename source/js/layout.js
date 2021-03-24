@@ -30,14 +30,17 @@ const createBalloonLayout = function(realty) {
   offerTime.textContent = 'Заезд после ' + realty.offer.checkin + ', выезд до ' + realty.offer.checkout;
 
   const offerFeatures = balloon.querySelector('.popup__features');
+
+  const showFeatures = function(feature) {
+    let featureItem = offerFeatures.querySelector('.popup__feature--' + feature);
+    featureItem.style.display = 'inline-block';
+  };
+
   for (let j = 0; j < offerFeatures.children.length; j++) {
     offerFeatures.children[j].style.display = 'none';
   }
   if (realty.offer.features.length > 0) {
-    for (let j = 0; j < realty.offer.features.length; j++) {
-      let featureItem = offerFeatures.querySelector('.popup__feature--' + realty.offer.features[j]);
-      featureItem.style.display = 'inline-block';
-    }
+    realty.offer.features.forEach(showFeatures);
   } else {
     offerFeatures.style.display = 'none';
   }
@@ -51,12 +54,15 @@ const createBalloonLayout = function(realty) {
 
   const offerPhotos = balloon.querySelector('.popup__photos');
   const photoTemplate = offerPhotos.removeChild(offerPhotos.children[0]);
+
+  const addPhotoPreview = function(photoSource) {
+    let photoItem = photoTemplate.cloneNode(photoTemplate);
+    photoItem.setAttribute('src', photoSource);
+    offerPhotos.appendChild(photoItem);
+  };
+
   if (realty.offer.photos.length > 0) {
-    for (let j = 0; j < realty.offer.photos.length; j++) {
-      let photoItem = photoTemplate.cloneNode(photoTemplate);
-      photoItem.setAttribute('src', realty.offer.photos[j]);
-      offerPhotos.appendChild(photoItem);
-    }
+    realty.offer.photos.forEach(addPhotoPreview);
   } else {
     offerPhotos.style.display = 'none';
   }
