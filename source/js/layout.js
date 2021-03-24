@@ -1,3 +1,10 @@
+const realyTypeDescription = {
+  palace: 'Дворец',
+  flat: 'Квартира',
+  house: 'Дом',
+  bungalow: 'Бунгало',
+};
+
 const template = document.querySelector('#card').content.querySelector('.popup');
 
 const createBalloonLayout = function(realtyJson) {
@@ -14,22 +21,7 @@ const createBalloonLayout = function(realtyJson) {
   offerPrice.firstChild.nodeValue = realtyJson.offer.price.toLocaleString() + ' ';
 
   const apartmentType = balloon.querySelector('.popup__type');
-  switch(realtyJson.offer.type) {
-    case 'palace':
-      apartmentType.textContent = 'Дворец';
-      break;
-    case 'flat':
-      apartmentType.textContent = 'Квартира';
-      break;
-    case 'house':
-      apartmentType.textContent = 'Дом';
-      break;
-    case 'bungalow':
-      apartmentType.textContent = 'Бунгало';
-      break;
-    default:
-      apartmentType.textContent = realtyJson.offer.type;
-  }
+  apartmentType.textContent = realyTypeDescription[realtyJson.offer.type];
 
   const offerCapacity = balloon.querySelector('.popup__text--capacity');
   offerCapacity.textContent = realtyJson.offer.rooms + ' комнаты для ' + realtyJson.offer.guests + ' гостей';
