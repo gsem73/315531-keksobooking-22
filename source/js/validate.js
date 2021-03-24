@@ -1,12 +1,19 @@
 // Валидация главной формы
 
 // Минимальная цена в зависимости от типа недвижимости
-
 const MinRealtyPrice = {
   'palace': 10000,
   'flat': 1000,
   'house': 5000,
   'bungalow': 0,
+};
+
+// Допустимое количества гостей в зависимостии от выбранного количества комнат
+const СapacityRules = {
+  '1': ['1'],
+  '2': ['1', '2'],
+  '3': ['1', '2', '3'],
+  '100': ['0'],
 };
 
 const typeEdit = document.querySelector('#type');
@@ -43,13 +50,6 @@ timeIn.addEventListener('change', onTimeInChange);
 timeOut.addEventListener('change', onTimeOutChange);
 
 // Проверка количества гостей в зависимостии от выбранного количества комнат
-
-const СapacityRules = {
-  '1': ['1'],
-  '2': ['1', '2'],
-  '3': ['1', '2', '3'],
-  '100': ['0'],
-};
 
 const capacity = document.querySelector('#capacity');
 const roomNumber = document.querySelector('#room_number');
