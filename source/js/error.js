@@ -3,17 +3,19 @@
 const main = document.querySelector('main');
 const errorPopupTemplate = document.querySelector('#error').content.querySelector('.error');
 
-const onErrorPopupClick = function() {
+const closePopup = function() {
   const popup = document.querySelector('.error');
   main.removeChild(popup);
   document.removeEventListener('keydown', onErrorPopupKeyDown);
 };
 
+const onErrorPopupClick = function() {
+  closePopup();
+};
+
 const onErrorPopupKeyDown = function(evt) {
   if (evt.key === 'Escape') {
-    const popup = document.querySelector('.error');
-    main.removeChild(popup);
-    document.removeEventListener('keydown', onErrorPopupKeyDown);
+    closePopup();
   }
 };
 
