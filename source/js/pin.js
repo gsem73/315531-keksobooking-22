@@ -3,14 +3,8 @@
 const DELAY = 500; // время задержки перерисовки маркеров при изменении фильтров
 
 import {refreshMarker} from './map.js'
+import {debounce} from './utils.js';
 
 const filterForm = document.querySelector('.map__filters');
 
-let timeout;
-
-const onFilterFormChange = function() {
-  clearTimeout(timeout);
-  timeout = setTimeout(refreshMarker, DELAY)
-}
-
-filterForm.addEventListener('change', onFilterFormChange);
+filterForm.addEventListener('change', debounce(refreshMarker, DELAY));

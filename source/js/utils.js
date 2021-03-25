@@ -19,4 +19,17 @@ const enableControl = function(form) {
   }
 };
 
-export{disableControl, enableControl};
+const debounce = function(callback, delay) {
+
+  let isCooldown = false;
+
+  return function() {
+    if (isCooldown) return;
+    callback.apply(this, arguments);
+    isCooldown = true;
+    setTimeout(() => isCooldown = false, delay);
+  };
+
+}
+
+export{disableControl, enableControl, debounce};
