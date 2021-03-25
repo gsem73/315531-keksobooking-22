@@ -3,17 +3,19 @@
 const main = document.querySelector('main');
 const successPopupTemplate = document.querySelector('#success').content.querySelector('.success');
 
-const onSuccessPopupClick = function() {
+const closePopup = function() {
   const popup = document.querySelector('.success');
   main.removeChild(popup);
   document.removeEventListener('keydown', onSuccessPopupKeyDown);
+}
+
+const onSuccessPopupClick = function() {
+  closePopup();
 };
 
 const onSuccessPopupKeyDown = function(evt) {
   if (evt.key === 'Escape') {
-    const popup = document.querySelector('.success');
-    main.removeChild(popup);
-    document.removeEventListener('keydown', onSuccessPopupKeyDown);
+    closePopup();
   }
 };
 

@@ -1,6 +1,6 @@
-import {} from './validate.js';
-import {} from './form.js';
-import {} from './filter.js';
-import {} from './map.js';
-import {} from './submit.js';
-import {} from './pin.js';
+import './validate.js';
+import './form.js';
+import './filter.js';
+import './map.js';
+import './submit.js';
+import './pin.js';
