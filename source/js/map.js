@@ -3,6 +3,8 @@
 // Создание карты
 
 const MAX_PIN = 10; // максимальное количество меток похожих объявлений
+const ICON_SIZE = 52;
+const MAP_SCALE = 10;
 
 import {getViewCenter, setSimilarRealty, getSimilarRealty} from './data.js';
 import {enableMainForm, setCoordinates} from './form.js';
@@ -17,8 +19,8 @@ const markerGroup = L.layerGroup().addTo(map);
 
 const pinIcon = L.icon({
   iconUrl: 'img/pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [21, 52],
+  iconSize: [ICON_SIZE, ICON_SIZE],
+  iconAnchor: [Math.floor(ICON_SIZE / 2), ICON_SIZE],
 });
 
 const showPin = function(realtyList) {
@@ -61,7 +63,7 @@ const onMapLoad = function() {
 };
 
 map.on('load', onMapLoad);
-map.setView(getViewCenter(), 10);
+map.setView(getViewCenter(), MAP_SCALE);
 
 
 L.tileLayer(
@@ -75,8 +77,8 @@ L.tileLayer(
 
 const mainIcon = L.icon({
   iconUrl: 'img/main-pin.svg',
-  iconSize: [52, 52],
-  iconAnchor: [21, 52],
+  iconSize: [ICON_SIZE, ICON_SIZE],
+  iconAnchor: [Math.floor(ICON_SIZE / 2), ICON_SIZE],
 });
 
 const mainMarker = L.marker(
@@ -103,7 +105,7 @@ const refreshMarker = function() {
 };
 
 const resetMap = function() {
-  map.setView(getViewCenter(), 10);
+  map.setView(getViewCenter(), MAP_SCALE);
   mainMarker.setLatLng(getViewCenter());
   refreshMarker()
 };
