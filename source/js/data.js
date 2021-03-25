@@ -5,7 +5,7 @@ const TOKYO_CENTER = {
   lng: 139.75,
 };
 
-const PriceRange = {
+const priceRange = {
   low: {
     minValue: 0,
     maxValue: 10000,
@@ -45,8 +45,8 @@ const getSimilarRealty = function(elementCount, filterValue) {
       }
     }
     if (filterValue.housingPrice !== 'any') {
-      const minPrice = PriceRange[filterValue.housingPrice].minValue;
-      const maxPrice = PriceRange[filterValue.housingPrice].maxValue;
+      const minPrice = priceRange[filterValue.housingPrice].minValue;
+      const maxPrice = priceRange[filterValue.housingPrice].maxValue;
       if ((Number(element.offer.price) <= minPrice) || (Number(element.offer.price) > maxPrice)) {
         return false;
       }

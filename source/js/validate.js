@@ -1,7 +1,7 @@
 // Валидация главной формы
 
 // Минимальная цена в зависимости от типа недвижимости
-const MinRealtyPrice = {
+const minRealtyPrice = {
   'palace': 10000,
   'flat': 1000,
   'house': 5000,
@@ -9,7 +9,7 @@ const MinRealtyPrice = {
 };
 
 // Допустимое количества гостей в зависимостии от выбранного количества комнат
-const СapacityRules = {
+const capacityRules = {
   '1': ['1'],
   '2': ['1', '2'],
   '3': ['1', '2', '3'],
@@ -20,7 +20,7 @@ const typeEdit = document.querySelector('#type');
 const priceEdit = document.querySelector('#price');
 
 const getMinPrice = function(typeRealty) {
-  return MinRealtyPrice[typeRealty].toFixed();
+  return minRealtyPrice[typeRealty].toFixed();
 }
 
 const ontypeEditChange = function(evt) {
@@ -55,10 +55,10 @@ const capacity = document.querySelector('#capacity');
 const roomNumber = document.querySelector('#room_number');
 
 const validateRoomNumber = function() {
-  if (СapacityRules[roomNumber.value].includes(capacity.value)) {
+  if (capacityRules[roomNumber.value].includes(capacity.value)) {
     capacity.setCustomValidity('');
   } else {
-    capacity.setCustomValidity('Возможные значения при выбанном количестве комнат: ' + СapacityRules[roomNumber.value]);
+    capacity.setCustomValidity('Возможные значения при выбанном количестве комнат: ' + capacityRules[roomNumber.value]);
   }
 };
 
