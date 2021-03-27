@@ -7,7 +7,7 @@ const controlList = 'input, select, button, fieldset, textarea';
 const disableControl = function(form) {
   const elements = form.querySelectorAll(controlList);
   for (let i = 0; i < elements.length; i++) {
-    elements[i].setAttribute('disabled', '');
+    elements[i].disabled = true;
   }
 };
 
@@ -15,7 +15,7 @@ const disableControl = function(form) {
 const enableControl = function(form) {
   const elements = form.querySelectorAll(controlList);
   for (let i = 0; i < elements.length; i++) {
-    elements[i].removeAttribute('disabled');
+    elements[i].disabled = false;
   }
 };
 
@@ -23,11 +23,17 @@ const debounce = function(callback, delay) {
 
   let isCooldown = false;
 
+  const resetCooldown = function() {
+    isCooldown = false;
+  };
+
   return function() {
-    if (isCooldown) return;
+    if (isCooldown) {
+      return;
+    }
     callback.apply(this, arguments);
     isCooldown = true;
-    setTimeout(() => isCooldown = false, delay);
+    setTimeout(resetCooldown, delay);
   };
 
 }

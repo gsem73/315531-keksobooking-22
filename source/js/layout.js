@@ -55,20 +55,20 @@ const createBalloonLayout = function(realty) {
   const offerPhotos = balloon.querySelector('.popup__photos');
   const photoTemplate = offerPhotos.removeChild(offerPhotos.children[0]);
 
-  const addPhotoPreview = function(photoSource) {
-    let photoItem = photoTemplate.cloneNode(photoTemplate);
-    photoItem.setAttribute('src', photoSource);
-    offerPhotos.appendChild(photoItem);
-  };
-
   if (realty.offer.photos.length > 0) {
-    realty.offer.photos.forEach(addPhotoPreview);
+    const photoFragment = document.createDocumentFragment();
+    realty.offer.photos.forEach(function(photoSource) {
+      let photoItem = photoTemplate.cloneNode(photoTemplate);
+      photoItem.src = photoSource;
+      photoFragment.appendChild(photoItem);
+    });
+    offerPhotos.appendChild(photoFragment);
   } else {
     offerPhotos.style.display = 'none';
   }
 
   const authorAvatar = balloon.querySelector('.popup__avatar');
-  authorAvatar.setAttribute('src', realty.author.avatar);
+  authorAvatar.src = realty.author.avatar;
 
   return balloon;
 }

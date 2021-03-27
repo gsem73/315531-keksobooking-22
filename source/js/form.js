@@ -1,7 +1,7 @@
 // Функции для работы с главной формой
 
 import {disableControl, enableControl} from './utils.js';
-import {getViewCenter, formatCoordinates} from './data.js';
+import {formatCoordinates} from './data.js';
 
 const mainForm = document.querySelector('.ad-form');
 const disableClass = 'ad-form--disabled';
@@ -23,8 +23,6 @@ const address = document.querySelector('#address');
 const setCoordinates = function(coordinates) {
   address.value = formatCoordinates(coordinates);
 }
-
-address.setAttribute('value', formatCoordinates(getViewCenter()));
 
 const resetMainForm = function() {
   mainForm.reset();
