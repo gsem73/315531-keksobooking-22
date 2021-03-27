@@ -23,13 +23,17 @@ const debounce = function(callback, delay) {
 
   let isCooldown = false;
 
+  const resetCooldown = function() {
+    isCooldown = false;
+  };
+
   return function() {
     if (isCooldown) {
       return;
     }
     callback.apply(this, arguments);
     isCooldown = true;
-    setTimeout(() => isCooldown = false, delay);
+    setTimeout(resetCooldown, delay);
   };
 
 }
