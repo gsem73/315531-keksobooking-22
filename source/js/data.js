@@ -16,7 +16,7 @@ const priceRange = {
   },
   high: {
     minValue: 50000,
-    maxValue: 1000000,
+    maxValue: Number.MAX_VALUE,
   },
 }
 
@@ -34,39 +34,26 @@ const setSimilarRealty = function(json) {
   similarRealty = json;
 };
 
+// Функция возвращает true, если каждый элемент массива subArray есть в baseArray
+const isSubArray = function(subArray, baseArray) {
+  return subArray.every(function(item) {
+    return baseArray.includes(item);
+  });
+};
+
 const getSimilarRealty = function(elementCount, filterValue) {
 
   // Проверка похожего объявления на соответствие критериям фильтрации
   const checkElement = function(element) {
 
-    if (filterValue.housingType !== 'any') {
-      if (filterValue.housingType !== element.offer.type) {
-        return false;
-      }
-    }
-    if (filterValue.housingPrice !== 'any') {
-      const minPrice = priceRange[filterValue.housingPrice].minValue;
-      const maxPrice = priceRange[filterValue.housingPrice].maxValue;
-      if ((Number(element.offer.price) <= minPrice) || (Number(element.offer.price) > maxPrice)) {
-        return false;
-      }
-    }
-    if (filterValue.housingRooms !== 'any') {
-      if (Number(filterValue.housingRooms) !== element.offer.rooms) {
-        return false;
-      }
-    }
-    if (filterValue.housingGuests !== 'any') {
-      if (Number(filterValue.housingGuests) !== element.offer.guests) {
-        return false;
-      }
-    }
-    for (let i = 0; i < filterValue.features.length; i++) {
-      if (!element.offer.features.includes(filterValue.features[i])) {
-        return false;
-      }
-    }
-    return true;
+    return (filterValue.housingType === 'any' || filterValue.housingType === element.offer.type) &&
+      (filterValue.housingPrice === 'any' ||
+        (Number(element.offer.price) >= priceRange[filterValue.housingPrice].minValue &&
+          Number(element.offer.price) < priceRange[filterValue.housingPrice].maxValue))  &&
+      (filterValue.housingRooms === 'any' || Number(filterValue.housingRooms) === element.offer.rooms) &&
+      (filterValue.housingGuests === 'any' || Number(filterValue.housingGuests) === element.offer.guests) &&
+      isSubArray(filterValue.features, element.offer.features);
+
   };
 
   return similarRealty.filter(checkElement).slice(0, elementCount);
