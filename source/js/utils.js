@@ -7,7 +7,7 @@ const controlList = 'input, select, button, fieldset, textarea';
 const disableControl = function(form) {
   const elements = form.querySelectorAll(controlList);
   for (let i = 0; i < elements.length; i++) {
-    elements[i].setAttribute('disabled', '');
+    elements[i].disabled = true;
   }
 };
 
@@ -15,7 +15,7 @@ const disableControl = function(form) {
 const enableControl = function(form) {
   const elements = form.querySelectorAll(controlList);
   for (let i = 0; i < elements.length; i++) {
-    elements[i].removeAttribute('disabled');
+    elements[i].disabled = false;
   }
 };
 

@@ -24,12 +24,12 @@ const getMinPrice = function(typeRealty) {
 }
 
 const ontypeEditChange = function(evt) {
-  priceEdit.setAttribute('min', getMinPrice(evt.target.value));
-  priceEdit.setAttribute('placeholder', getMinPrice(evt.target.value));
+  priceEdit.min = getMinPrice(evt.target.value);
+  priceEdit.placeholder = getMinPrice(evt.target.value);
 }
 
-priceEdit.setAttribute('min', getMinPrice(typeEdit.value));
-priceEdit.setAttribute('placeholder', getMinPrice(typeEdit.value));
+priceEdit.min = getMinPrice(typeEdit.value);
+priceEdit.placeholder = getMinPrice(typeEdit.value);
 
 typeEdit.addEventListener('change', ontypeEditChange);
 

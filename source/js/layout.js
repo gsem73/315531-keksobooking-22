@@ -59,7 +59,7 @@ const createBalloonLayout = function(realty) {
     const photoFragment = document.createDocumentFragment();
     realty.offer.photos.forEach(function(photoSource) {
       let photoItem = photoTemplate.cloneNode(photoTemplate);
-      photoItem.setAttribute('src', photoSource);
+      photoItem.src = photoSource;
       photoFragment.appendChild(photoItem);
     });
     offerPhotos.appendChild(photoFragment);
@@ -68,7 +68,7 @@ const createBalloonLayout = function(realty) {
   }
 
   const authorAvatar = balloon.querySelector('.popup__avatar');
-  authorAvatar.setAttribute('src', realty.author.avatar);
+  authorAvatar.src = realty.author.avatar;
 
   return balloon;
 }
